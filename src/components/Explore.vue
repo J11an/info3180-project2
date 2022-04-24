@@ -52,6 +52,7 @@ export default({
             model: '',
             cars: [],
             a: false,
+            message: '',
         }    
     },
     created(){
