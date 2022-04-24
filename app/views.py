@@ -7,7 +7,7 @@ This file creates your application.
 
 import json
 from app import app,db,login_manager
-from flask import render_template, request, jsonify, send_file,redirect, url_for, flash, g , session
+from flask import render_template, request, jsonify, send_file,redirect, url_for, flash, g , session, send_from_directory
 import os
 from .models import Cars,Users,Favourites
 from .forms import UserForm,LoginForm,CarForm
@@ -75,7 +75,9 @@ def index():
 
 @app.route('/api/register',methods = ["POST"])
 def register():
-
+    print("Check")
+    if not os.path.exists('./uploads'):
+        os.makedirs('./uploads')
     form = UserForm()
     if request.method == "POST" and form.validate_on_submit():
 
@@ -98,7 +100,7 @@ def register():
 
         return jsonify({"message": 'User Registration Successful'})
         
-    return jsonify(form_errors(form))
+    return jsonify(errors=form_errors(form))
 
 @app.route('/api/csrf-token',methods=["GET"])
 def get_csrf():
@@ -106,6 +108,8 @@ def get_csrf():
 
 @app.route("/api/auth/login", methods=["POST"])
 def login():
+    if not os.path.exists('./uploads'):
+        os.makedirs('./uploads')
     form = LoginForm()
     if request.method == "POST":
         if form.validate_on_submit():
@@ -124,21 +128,22 @@ def login():
                 return jsonify(message=" Login Successful and Token was Generated",data={"token":token},id={"id":user.id})         
             else:
                 return jsonify({"message": 'User Login Unsuccessful'})
-    return jsonify(form_errors(form))
+    return jsonify(errors=form_errors(form))
  
 
 
 @app.route('/api/auth/logout', methods=['POST'])
 @requires_auth
 def logout():
+    session.clear()
     user = g.current_user
     return jsonify(data={"user": user}, message="Logged Out")
 
 
 
 @app.route("/api/cars", methods = ['POST','GET'])
+@requires_auth
 def pcars():
-
     form = CarForm()
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -152,7 +157,9 @@ def pcars():
                 description = request.form['Description']
                 picture = request.files['photo']
                 filename = secure_filename(picture.filename)
-                picture.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+
+                picture.save(os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER'],filename))
+                
                 user_id = request.form['user_id']
                 car = Cars(description,make,model,color,year,transmission,cartype,price,filename,user_id)
                 db.session.add(car)
@@ -225,7 +232,7 @@ Get details of a user by id
 def users(user_id):
     if int(user_id) == session.get('userid'):
         user = Users.query.filter_by(id=user_id).first()
-        return jsonify(id=user.id, username=user.username, name=user.name, email=user.email, location=user.location, biography=user.biography, photo=user.photo, date_joined=user.date_joined)
+        return jsonify(id=user.id, username=user.username, name=user.name, email=user.email, location=user.location, biography=user.biography, photo=user.photo, date_joined=user.date_joined.strftime("%B %d, %Y"))
     else:
         return jsonify({"message":"Unauthorized"}), 401
 
@@ -234,16 +241,18 @@ def users(user_id):
 """
 Get cars that a user has favorited
 """
-@requires_auth
 @app.route('/api/users/<user_id>/favourites', methods=['GET'])
+@requires_auth
 def userfavorites(user_id):
-    favorites = Favourites.query.filter_by(user_id=user_id).all()
-    cars = []
-    print(favorites)
-    for favorite in favorites:
-        cars.append(Cars.query.filter_by(id=favorite.car_id).first())
-
-    return jsonify([car.serialize() for car in cars])
+    print()
+    if int(user_id) == session.get('userid'):
+        favorites = Favourites.query.filter_by(user_id=user_id).all()
+        cars = []
+        for favorite in favorites:
+            cars.append(Cars.query.filter_by(id=favorite.car_id).first())
+        return jsonify([car.serialize() for car in cars])
+    else:
+        return jsonify({"message":"Unauthorized"}), 401
 
 
 ###
@@ -289,6 +298,10 @@ def page_not_found(error):
     """Custom 404 page."""
     return jsonify(error="Page Not Found"), 404
 
+@app.route('/uploads/<filename>')
+def get_uploaded_images(filename):
+    rootdir = os.getcwd()
+    return send_from_directory(os.path.join(rootdir,app.config['UPLOAD_FOLDER']), filename)
 
 if __name__ == '__main__':
     app.run(debug=True,host="0.0.0.0",port="8080")
