@@ -15,7 +15,6 @@
                 <button type="submit" class="btn btn-primary mb-2">Search</button>
             </div>
         </form>
-        
     </div>
    
     <div v-if="a" class="card-container">

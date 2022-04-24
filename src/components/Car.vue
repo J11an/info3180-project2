@@ -4,7 +4,7 @@
 <div class="container">
 
 <div v-for="test in tests">
- <div class="card mb-3" style="max-width: 840px;">
+ <div class="card mb-3 shadow p-3 mb-5"  style="max-width: 840px;">
   <div class="row g-0">
       <div class="col-md-4">
     <img :src="'/uploads/'+test.photo" class="img-fluid rounded-start carimg">
@@ -145,8 +145,6 @@ body{
 
 .carimg{
 
-    height:100%;
-    width:100%;
 }
 
 .cardetails{
