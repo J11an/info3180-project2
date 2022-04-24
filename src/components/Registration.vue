@@ -40,7 +40,7 @@
             <div class="row mb-3">
                 <div class="col-6">
                     <label for = "location" class = "font-weight-bold form-label">Location </label>
-                    <input type ="text" placeholder="Enter fullname" name = "location" class = "form-control">
+                    <input type ="text" placeholder="Enter location" name = "location" class = "form-control">
                 </div>
             </div>
             
