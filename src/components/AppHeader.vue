@@ -2,11 +2,11 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container-fluid">
-        <span v-if="!logged_in" class="navbar-brand" href = "/">
+        <span v-if="!logged_in" class="navbar-brand" >
         <img src = "../assets/HeaderIcon.png" width="25">  
         United Auto Sales </span>
 
-        <span v-if="logged_in" class="navbar-brand" href = "/">
+        <span v-if="logged_in" class="navbar-brand">
         <img src = "../assets/HeaderIcon.png" width="25">  
         United Auto Sales</span>
         <button

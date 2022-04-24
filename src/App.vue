@@ -20,9 +20,17 @@ body {
   background-color: rgb(226, 223, 223);
   -ms-overflow-style: none;  
   scrollbar-width: none; 
-
+  overflow:hidden;
 
 }
 
+.container::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 </style>
