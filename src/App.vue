@@ -20,7 +20,6 @@ body {
   background-color: rgb(226, 223, 223);
   -ms-overflow-style: none;  
   scrollbar-width: none; 
-  overflow:hidden;
 
 }
 
