@@ -46,11 +46,21 @@ methods:
 
 
 <style scoped>
+
 * {    
     margin:0px;
     padding:0px;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
 
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  overflow: hidden;
+}
 
 .rbtn{
 
