@@ -142,8 +142,9 @@ body{
 
 .carimg{
 
-    height:100%;
-    width:100%;
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
 }
 
 .cardetails{
