@@ -52,7 +52,6 @@ export default({
             model: '',
             cars: [],
             a: false,
-            message: '',
         }    
     },
     created(){
@@ -105,12 +104,7 @@ export default({
                 })
                 .then(function(data){
                     console.log(data);
-                    if ("message" in data){
-                        
-                    }
-                    else{
-                        self.cars = data;
-                    }
+                    self.cars = data;
                 })
                 .catch(function(error){
                     console.log(error)
