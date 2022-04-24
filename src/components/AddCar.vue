@@ -66,7 +66,7 @@
             
 
             <label for = "Description" class = "font-weight-bold form-label" >Description </label>
-            <textarea name = "Description" placeholder="Enter Description" class = "form-control mb-3"></textarea>
+            <textarea name = "Description" placeholder="Enter Description" class = "form-control mb-3" maxlength = "1000"></textarea>
 
             <label for = "photo" class = "font-weight-bold" >Upload Photo</label>
             <input type ="file" name = "photo" class = "form-control">

@@ -19,7 +19,7 @@ class Cars(db.Model):
 
     __tablename__ = 'Cars'
     id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String(100))
+    description = db.Column(db.String(1000))
     make = db.Column(db.String(100))
     model = db.Column(db.String(100))
     colour = db.Column(db.String(100))
