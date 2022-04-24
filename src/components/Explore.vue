@@ -104,7 +104,7 @@ export default({
                 })
                 .then(function(data){
                     console.log(data);
-                    if (message in data){
+                    if ("message" in data){
                         
                     }
                     else{
