@@ -126,7 +126,10 @@ export default({
 
 
 <style scoped>
-
+img{
+    height:150px;
+    width:50%;
+}
 
 body{
 
@@ -142,9 +145,8 @@ body{
 
 .carimg{
 
-    width: 100%;
-    height: 15vw;
-    object-fit: cover;
+    height:100%;
+    width:100%;
 }
 
 .cardetails{
