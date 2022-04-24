@@ -22,6 +22,7 @@ from flask import _request_ctx_stack
 import datetime
 
 
+rootdir = os.getcwd()
 
 ###
 # Routing for your application.
@@ -83,7 +84,7 @@ def register():
 
         picture = request.files['photo']
         filename = secure_filename(picture.filename)
-        picture.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+        picture.save(os.path.join(rootdir, app.config['UPLOAD_FOLDER'],filename))
         username = request.form['username']
         password = request.form['password']
         name = request.form['fullname']
@@ -124,7 +125,7 @@ def login():
                     'iat': datetime.datetime.now(datetime.timezone.utc),
                     'exp': datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(minutes=30)},
                     os.path.join(app.config['SECRET_KEY']))    
-
+                    
                 return jsonify(message=" Login Successful and Token was Generated",data={"token":token},id={"id":user.id})         
             else:
                 return jsonify({"message": 'User Login Unsuccessful'})
@@ -158,7 +159,7 @@ def pcars():
                 picture = request.files['photo']
                 filename = secure_filename(picture.filename)
 
-                picture.save(os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER'],filename))
+                picture.save(os.path.join(rootdir, app.config['UPLOAD_FOLDER'],filename))
                 
                 user_id = request.form['user_id']
                 car = Cars(description,make,model,color,year,transmission,cartype,price,filename,user_id)
