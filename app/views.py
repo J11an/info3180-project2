@@ -83,7 +83,7 @@ def register():
 
         picture = request.files['photo']
         filename = secure_filename(picture.filename)
-        picture.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+        picture.save(os.path.join(os.getcwd(),app.config['UPLOAD_FOLDER'],filename))
         username = request.form['username']
         password = request.form['password']
         name = request.form['fullname']
