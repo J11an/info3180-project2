@@ -7,7 +7,7 @@ This file creates your application.
 
 import json
 from app import app,db,login_manager
-from flask import render_template, request, jsonify, send_file,redirect, url_for, flash, g , session
+from flask import render_template, request, jsonify, send_file,redirect, url_for, flash, g , session, send_from_directory
 import os
 from .models import Cars,Users,Favourites
 from .forms import UserForm,LoginForm,CarForm
@@ -83,7 +83,7 @@ def register():
 
         picture = request.files['photo']
         filename = secure_filename(picture.filename)
-        picture.save(os.path.join(os.getcwd(),app.config['UPLOAD_FOLDER'],filename))
+        picture.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
         username = request.form['username']
         password = request.form['password']
         name = request.form['fullname']
@@ -298,6 +298,10 @@ def page_not_found(error):
     """Custom 404 page."""
     return jsonify(error="Page Not Found"), 404
 
+@app.route('/uploads/<filename>')
+def get_uploaded_images(filename):
+    rootdir = os.getcwd()
+    return send_from_directory(os.path.join(rootdir,app.config['UPLOAD_FOLDER']), filename)
 
 if __name__ == '__main__':
     app.run(debug=True,host="0.0.0.0",port="8080")
