@@ -1,32 +1,22 @@
 <template>
 
-    <body>
-    <div class="leftside ">
-        
-        <div class="hometext ">
-            <div class="homeheadings">
-                <h2 id = "homeheadingstext"> Buy and Sell Cars Online </h2>
+        <div class="row  align-items-center">
+
+            <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+                <h1 class="display-4 fw-bold lh-1">Buy and Sell Cars Online</h1>
+                <p class="lead">United Auto Sales provides the fastest, easiest and most user friendly way to buy or sell cars online.
+                        Find a Great Price on a Vehicle You Want.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                    <button type = "button" @click="Register" class = "btn btn-primary rbtn shadow">Register</button>
+                    <button type = "button" @click="Login" class = "btn btn-success lbtn shadow">Login</button>
+                </div>
             </div>
-            <div class="homesubtext">
-                <p id = "subtext shadow"> United Auto Sales provides the fastest, easiest and most user friendly way to buy or sell cars online.
-                    Find a Great Price on a Vehicle You Want.
-                </p>
+
+            <div class="col-lg-4 shadow-lg">
+                <img src="@/assets/HomePage.png" class = 'homeimg'>
             </div>
-    </div>
-        <div class="homebuttons">
-            <button type = "button" @click="Register" class = "btn btn-primary rbtn shadow">Register</button>
-            <button type = "button" @click="Login" class = "btn btn-success lbtn shadow">Login</button>
 
         </div>
-    </div>
-
-    <div class="rightside">
-
-        <img :src ="image" class = 'homeimg'>
-        
-    </div>
-
-    </body>
     
 </template>
 
@@ -53,71 +43,14 @@ methods:
 }
 </script>
 
+
+
 <style scoped>
-
-
-
-* {
-    
+* {    
     margin:0px;
     padding:0px;
-    box-sizing: border-box;
-
 }
 
-body{
-    padding-top: 25px;
-    display:flex;
-    overflow: hidden;
-    
-}
-
-.leftside{
-
-    margin-top: 200px;
-    margin-left:170px;
-    margin-right:50px;
-
-    max-width: 50%;
-    display: flex;
-    flex-direction: column;
-}
-.rightside {
-
-    max-width: 50%;
-}
-
-.homeheadings{
-
-    width:70%;
-    padding-bottom: 20px;
-
-}
-
-#homeheadingstext{
-
-    font-size: 48px;
-    font-weight: bold;
-}
-
-.homesubtext{
-
-    width:74%;
-}
-
-#subtext{
-
-    color: rgb(50, 50, 50);
-}
-
-.homebuttons{
-    
-    padding-top: 10px;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    gap:10px;    
-}
 
 .rbtn{
 
