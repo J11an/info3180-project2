@@ -104,7 +104,12 @@ export default({
                 })
                 .then(function(data){
                     console.log(data);
-                    self.cars = data;
+                    if (message in data){
+                        
+                    }
+                    else{
+                        self.cars = data;
+                    }
                 })
                 .catch(function(error){
                     console.log(error)
